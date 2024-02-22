@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<head>
+	<script src="res/script/jquery.min.js"></script>
+	<meta name="viewport" content="initial-scale=2, maximum-scale=1.0, user-scalable=no" />
+	<style>
+		@font-face {
+			font-family: "Rubik";
+			src: url(res/fonts/Roboto-Medium.ttf);
+		}
+
+		html {
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+		}
+
+		body {
+			margin: 0;
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+			background-color: #f2f3fc;
+			font-family: Rubik;
+			font-weight: 1000;
+			color: #000000;
+			user-select: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.coffee-bg {
+			display: flex;
+			align-items: center;
+		}
+
+		.coffee-txt {
+			background-color: white;
+			box-shadow: 0px 0px 4px #0000004d;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: small;
+			padding: 9px 9px;
+			transform-origin: right;
+			transform: scaleX(0);
+			animation: coffee-txt 2s ease 1;
+		}
+
+		@keyframes coffee-txt {
+			0% {
+				transform: scaleX(0);
+				opacity: 0;
+			}
+
+			20% {
+				transform: scaleX(1);
+				opacity: 1;
+			}
+
+			80% {
+				transform: scaleX(1);
+				opacity: 1;
+			}
+
+			100% {
+				transform: scaleX(0);
+				opacity: 1;
+			}
+		}
+
+		.coffee-img {
+			width: 50px;
+			height: 50px;
+			z-index: 10;
+			opacity: 0;
+			transition: all .2s ease;
+			transform: translateX(-10px);
+			transform-origin: center;
+		}
+
+		.coffee-img:active {
+			transition: none;
+			opacity: .6 !important;
+		}
+
+		.bg-img {
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			left: 0;
+			transform: translateY(-100vh);
+			transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		}
+
+		.ct-bg {
+			height: 90vh;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			align-content: space-evenly;
+		}
+
+		.ct {
+			width: 95vw;
+			max-width: 500PX;
+			height: 120px;
+			border-radius: 10px;
+			transition: all .3s;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-content: center;
+			margin-top: 2vh;
+			transform: scale(1.2);
+			opacity: 0;
+			transition: all 350ms ease;
+			position: relative;
+			color: #171415;
+			background: #d3f36b;
+			box-shadow: 0px 0px 18px rgba(0, 0, 0, .3);
+		}
+
+		.ct:active {
+			transition: none;
+			opacity: .6 !important;
+		}
+
+		.ct-main-img {
+			width: 135px;
+			position: absolute;
+			top: -35%;
+			left: 2%;
+		}
+
+		.ct-main-img2 {
+			width: 228px;
+			position: absolute;
+			top: -40%;
+			left: 46%;
+		}
+
+		.ct-main-img3 {
+			width: 158px;
+			position: absolute;
+			top: -2%;
+			left: 54%;
+		}
+
+		.ct-img {
+			width: 30vw;
+			height: 30vw;
+			margin-bottom: 2vw;
+			border-radius: 10px;
+		}
+
+		.ct-txt {
+			width: 100%;
+			text-align: center;
+			font-size: large;
+			position: relative;
+		}
+
+		.score {
+			width: 100%;
+			text-align: center;
+			padding-top: 4vw;
+			font-size: x-large;
+			position: relative;
+		}
+
+		.mid {
+			width: 100vw;
+			height: 10vh;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.coins {
+			width: fit-content;
+			min-width: 90px;
+			padding: .5vh 2vw;
+			background-color: white;
+			box-shadow: 0px 0px 4px #0000004d;
+			border-radius: 10px;
+			display: flex;
+			flex-wrap: nowrap;
+			align-items: center;
+			transition: all 350ms ease;
+			transform: scale(1.2);
+			opacity: 0;
+			margin-left: 4vw;
+		}
+
+		.coins-img {
+			width: 30px;
+			height: 30px;
+		}
+
+		#coins {
+			width: 15vw;
+			font-size: medium;
+			transform: translateX(1.8vw);
+		}
+
+		.special-bg {
+			width: 10vh;
+			height: 10vh;
+			padding-right: 35px;
+			opacity: 0;
+			transition: all .6s ease;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.special-img {
+			width: 10vh;
+			height: 10vh;
+		}
+
+		.back-img {
+			position: absolute;
+			top: 1vw;
+			left: 1vw;
+			width: 14vw;
+		}
+
+		.newAdded {
+			width: 90%;
+			background-color: #ecaaaa;
+			border-radius: 4px;
+			color: #3B0A01;
+			position: relative;
+			padding: 1vh 0;
+			text-align: center;
+			display: none;
+			animation: toast 600ms ease 1;
+		}
+
+		@keyframes toast {
+			0% {
+				transform: scale(1.1);
+				opacity: 0;
+			}
+
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		.luffy-img {
+			width: 120px;
+			/* height: 90px; */
+			position: absolute;
+			top: -123%;
+			left: 68%;
+			transform-origin: center;
+			opacity: 0;
+			transition: all .6s ease;
+			/* animation: ct-img2 3s ease infinite; */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="mid">
+		<div class="coins">
+			<img src="res/image/coins.webp" class="coins-img">
+			<div id="coins">0</div>
+		</div>
+		<div class="coffee-bg">
+			<div class="coffee-txt">Support me!</div>
+			<img src="res/image/coffee.webp" class="coffee-img">
+		</div>
+	</div>
+
+	<div class="ct-bg">
+		<div class="ct ct1">
+			<img src="res/image/dir.webp" class="ct-main-img3">
+			<div class="ct-txt">MOVIE</div>
+			<div class="score"><span id="bollyLevels">0</span></div>
+		</div>
+
+		<div class="ct ct3">
+			<img src="res/image/shar2.webp" class="ct-main-img">
+			<div class="ct-txt">ACTOR</div>
+			<div class="score"><span id="bollyActorLevel">0</span></div>
+		</div>
+
+		<div class="ct ct2">
+			<img src="res/image/arij.webp" class="ct-main-img2">
+			<div class="ct-txt">SONGS</div>
+			<div class="score"><span id="song-level">0</span></div>
+		</div>
+
+		<style>
+			.rate-bg {
+				width: 85vw;
+				background-color: #d3f36b;
+				border-radius: 10px;
+				text-align: center;
+				padding: 10px 0;
+				transition: all 350ms ease;
+				animation: feedback 1s ease-in 1;
+				font-weight: 500;
+				position: relative;
+			}
+
+			.rate-bg:active {
+				transition: none;
+				opacity: .5;
+			}
+		</style>
+		<div class="rate-bg">
+			Rate us on Google play store
+			<img src="res/image/rai.webp" class="luffy-img">
+
+		</div>
+
+	</div><!--ct-bg closed-->
+	<audio id="button2" src="res/audio/button2.mp3"></audio>
+	<script src="movie/movie.js"></script>
+	<script src="song/res/song.js"></script>
+	<script>
+		setTimeout(function () { $('.coffee-img, .coins, .feedback, .special-bg, .luffy-img').css({ opacity: '1' }); }, 200);
+		setTimeout(function () { $('.ct1').css({ 'transform': 'scale(1)', 'opacity': '1' }); }, 100);
+		setTimeout(function () { $('.ct2').css({ 'transform': 'scale(1)', 'opacity': '1' }); }, 200);
+		setTimeout(function () { $('.ct3').css({ 'transform': 'scale(1)', 'opacity': '1' }); }, 300);
+		setTimeout(function () { $('.ct4').css({ 'transform': 'scale(1)', 'opacity': '1' }); }, 400);
+		setTimeout(function () { $('.ct5').css({ 'transform': 'scale(1)', 'opacity': '1' }); }, 500);
+
+		function FullHide() {
+			setTimeout(function () { $('.coffee-img, .coins, .feedback, .rate-bg, .buy-bg, .ad-bg, .special-bg, .ad-class, .luffy-img').css({ opacity: '0' }); }, 200);
+			setTimeout(function () { $('.ct1').css({ 'transform': 'scale(1.2)', 'opacity': '0' }); }, 100);
+			setTimeout(function () { $('.ct2').css({ 'transform': 'scale(1.2)', 'opacity': '0' }); }, 200);
+			setTimeout(function () { $('.ct3').css({ 'transform': 'scale(1.2)', 'opacity': '0' }); }, 300);
+			setTimeout(function () { $('.ct4').css({ 'transform': 'scale(1.2)', 'opacity': '0' }); }, 400);
+			setTimeout(function () { $('.ct5').css({ 'transform': 'scale(1.2)', 'opacity': '0' }); }, 500);
+		}
+
+		localStorage.removeItem("ad");
+
+		if (localStorage.getItem("reward") === null) {
+			var reward = 0;
+			localStorage.setItem("reward", reward);
+			localStorage.setItem("GiveReward", 0);
+		} else {
+			var reward = localStorage.getItem("reward");
+		}
+
+		if (localStorage.getItem("bollyCoins") === null) {
+			var coins = 10;
+			localStorage.setItem("bollyCoins", coins);
+			location.reload();
+		} else {
+			var coins = localStorage.getItem("bollyCoins");
+			document.getElementById("coins").innerHTML = coins;
+		}
+
+		$('.ct').click(function () {
+			document.getElementById("button2").play();
+			setTimeout(() => {
+				FullHide();
+			}, 100);
+		});
+
+		$('.coins, .buy-bg').click(function () {
+			document.getElementById("button2").play();
+			FullHide();
+			setTimeout(() => { parent.location = "get_coins.html"; }, 700);
+		});
+
+		if (localStorage.getItem("bollyLevels") === null) {
+			levels = 1;
+			parseInt(localStorage.setItem("bollyLevels", levels));
+		}
+		levels = parseInt(localStorage.getItem("bollyLevels"));
+		$("#bollyLevels").text(levels);
+
+		if (localStorage.getItem("bollySongLevel") === null) {
+			bollySongLevel = 1;
+			parseInt(localStorage.setItem("bollySongLevel", bollySongLevel));
+		}
+		bollySongLevel = parseInt(localStorage.getItem("bollySongLevel"));
+		$("#song-level").text(bollySongLevel);
+
+		if (localStorage.bollyActorLevel == null) {
+			bollyActorLevel = 1;
+			localStorage.bollyActorLevel = bollyActorLevel;
+		}
+		bollyActorLevel = parseInt(localStorage.bollyActorLevel);
+		console.log(bollyActorLevel)
+		$("#bollyActorLevel").html(bollyActorLevel);
+
+		if (localStorage.bollyActressLevel == null) {
+			bollyActressLevel = 1;
+			localStorage.bollyActressLevel = bollyActressLevel;
+		}
+		bollyActressLevel = parseInt(localStorage.bollyActressLevel);
+		console.log(bollyActressLevel)
+		$("#bollyActressLevel").html(bollyActressLevel);
+
+		$('.ct1').click(function () {
+			if (levels <= levelTotal) {
+				setTimeout(function () {
+					parent.location = 'movie/movie.html';
+				}, 600);
+			} else {
+				setTimeout(function () {
+					parent.location = 'wait_update.html';
+				}, 600);
+			}
+		});
+		$('.ct2').click(function () {
+			if (bollySongLevel <= songLevelTotal) {
+				setTimeout(function () {
+					parent.location = 'song/song_content.html';
+				}, 600);
+			} else {
+				setTimeout(function () {
+					parent.location = 'wait_update.html';
+				}, 600);
+			}
+		});
+		$('.ct3').click(function () {
+			if (bollyActorLevel <= songLevelTotal) {
+				setTimeout(function () {
+					parent.location = 'actor/actor_content.html';
+				}, 600);
+			} else {
+				setTimeout(function () {
+					parent.location = 'wait_update.html';
+				}, 600);
+			}
+		});
+
+		$('.coffee-img').click(function () {
+			setTimeout(() => {
+				parent.location = 'https://www.buymeacoffee.com/shameelAbid';
+			}, 400);
+		});
+
+		$(".rate-bg").click(function () {
+			setTimeout(() => {
+				parent.location = "https://play.google.com/store/apps/details?id=com.quec.guess.bollywood";
+			}, 200);
+		});
+
+		if (localStorage.Inter == 'NaN' || localStorage.Inter == NaN) {
+			localStorage.Inter = 1;
+		}
+	</script>
+</body>
+
+</html>

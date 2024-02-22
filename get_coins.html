@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="res/script/jquery.min.js"></script>
+    <script>isLoaded = false;</script>
+    <style>
+        @font-face {
+            font-family: Rubik;
+            src: url(res/fonts/Roboto-Medium.ttf);
+        }
+
+        html {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f2f3fc;
+            color: #24282c;
+            margin: 0;
+            font-family: Rubik;
+            user-select: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .top {
+            width: 90vw;
+            height: 10vh;
+            margin-left: 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-img {
+            width: 50px;
+            height: 50px;
+            transform: scale(1.2);
+            opacity: 0;
+            transition: all 350ms ease;
+        }
+
+        .back-img:active {
+            transform: scale(.9) !important;
+        }
+
+        .coins {
+            width: fit-content;
+            min-width: 90px;
+            padding: .5vh 2vw;
+            background-color: white;
+            box-shadow: 0px 0px 4px #0000004d;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            transition: all 350ms ease;
+            transform: scale(1.2);
+            opacity: 0;
+            margin-left: 4vw;
+        }
+
+        .coins-img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #coins {
+            width: 15vw;
+            font-size: medium;
+            font-weight: 100;
+            transform: translateX(1.8vw);
+        }
+
+        .bottom {
+            width: 100vw;
+            height: 90vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: baseline;
+            transform: scale(1.2);
+            opacity: 0;
+            transition: all 350ms ease;
+            overflow-y: scroll;
+        }
+
+        .active:active {
+            transition: none;
+            opacity: .5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <img src="res/image/back.webp" class="back-img active">
+        <div class="coins">
+            <img src="res/image/coins.webp" class="coins-img">
+            <div id="coins">3</div>
+        </div>
+    </div>
+    <style>
+        .ct {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 15px;
+            padding: 10px 0;
+            background: #d3f36b;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ct-sub-bg {
+            width: 40%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            font-size: x-large;
+        }
+
+        .hint-img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .buy {
+            width: 90px;
+            padding: 12px 0;
+            transform: translateX(-4.7vw);
+            background-color: white;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+            border-radius: 10px;
+        }
+
+        .buy-ct {
+            width: 100%;
+            text-align: center;
+        }
+
+        .video-img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <div class="bottom">
+        <div class="ct ct1">
+            <div class="ct-sub-bg">
+                <img src="res/image/coins.webp" class="hint-img"> + 5
+            </div>
+            <div class="buy free active"><img src="res/image/video.webp" class="video-img"> Free</div>
+        </div>
+
+        <div class="ct ct2">
+            <div class="ct-sub-bg">
+                <img src="res/image/coins.webp" class="hint-img"> + 50
+            </div>
+            <div class="buy buy1 active">Buy</div>
+        </div>
+
+        <div class="ct ct3">
+            <div class="ct-sub-bg">
+                <img src="res/image/coins.webp" class="hint-img"> + 100
+            </div>
+            <div class="buy buy2 active">
+                <div class="buy-ct">Buy</div>
+            </div>
+        </div>
+
+        <div class="ct ct4">
+            <div class="ct-sub-bg">
+                <img src="res/image/coins.webp" class="hint-img"> + 150
+            </div>
+            <div class="buy buy3 active">
+                <div class="buy-ct">Buy</div>
+            </div>
+        </div>
+        <style>
+            .divider-bg {
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 30px;
+            }
+
+            .divider-bar {
+                width: 20%;
+                height: 1px;
+                background-color: #24282c;
+            }
+
+            .divider-ct {
+                margin: 0 10px;
+            }
+
+            .app-img {
+                width: 50px;
+                margin-left: 10px;
+            }
+
+            .app-name {
+                width: 40%;
+                font-size: medium;
+                text-align: center;
+            }
+            .empty {
+                width: 100vw;
+                height: 40px;
+            }
+        </style>
+        <div class="divider-bg">
+            <div class="divider-bar"></div>
+            <div class="divider-ct">More apps</div>
+            <div class="divider-bar"></div>
+        </div>
+        <div class="ct">
+            <img src="res/image/app/eng.png" class="app-img">
+            <div class="app-name">Guess English Songs</div>
+            <div class="buy active">
+                <div class="buy-ct"
+                    onclick='parent.location=`https://play.google.com/store/apps/details?id=com.quec.english`'>
+                    Install</div>
+            </div>
+        </div>
+        <div class="ct">
+            <img src="res/image/app/anime.png" class="app-img">
+            <div class="app-name">Guess Anime</div>
+            <div class="buy active">
+                <div class="buy-ct"
+                    onclick='parent.location=`https://play.google.com/store/apps/details?id=com.quec.anime.guess`'>
+                    Install</div>
+            </div>
+        </div>
+        <div class="ct">
+            <img src="res/image/app/malayalam.png" class="app-img">
+            <div class="app-name">Guess Malayalam Movie</div>
+            <div class="buy active">
+                <div class="buy-ct"
+                    onclick='parent.location=`https://play.google.com/store/apps/details?id=com.quec.guess.malayalam`'>
+                    Install</div>
+            </div>
+        </div>
+        <div class="ct">
+            <img src="res/image/app/tamil.png" class="app-img">
+            <div class="app-name">Guess Tamil Movie</div>
+            <div class="buy active">
+                <div class="buy-ct"
+                    onclick='parent.location=`https://play.google.com/store/apps/details?id=com.quec.guess.tamil`'>
+                    Install</div>
+            </div>
+        </div>
+        <div class="empty"></div>
+
+
+    </div>
+
+    <script>
+        setTimeout(() => { $(".coins").css({ transform: 'scale(1)', opacity: '1' }); }, 100);
+        setTimeout(() => { $(".back-img").css({ transform: 'scale(1)', opacity: '1' }); }, 200);
+        setTimeout(() => { $(".bottom").css({ transform: 'scale(1)', opacity: '1' }); }, 400);
+
+        function Outro() {
+            setTimeout(() => { $(".bottom").css({ transform: 'scale(1.2)', opacity: '0' }); }, 100);
+            setTimeout(() => { $(".coins").css({ transform: 'scale(1.2)', opacity: '0' }); }, 200);
+            setTimeout(() => { $(".back-img").css({ transform: 'scale(1.2)', opacity: '0' }); }, 300);
+
+        }
+
+        coins = localStorage.getItem("bollyCoins"); $("#coins").html(coins);
+
+
+        $(".back-img").click(function () {
+            Outro();
+            setTimeout(() => { window.history.back(); }, 450);
+        });
+
+        $(".free").click(function () {
+            setTimeout(() => { parent.location = "https://reward"; }, 350);
+        });
+        $(".buy1").click(function () {
+            setTimeout(() => { parent.location = "https://item1"; }, 350);
+        });
+        $(".buy2").click(function () {
+            setTimeout(() => { parent.location = "https://item2"; }, 350);
+        });
+        $(".buy3").click(function () {
+            setTimeout(() => { parent.location = "https://item3"; }, 350);
+        });
+
+        setInterval(() => {
+            coins = localStorage.getItem("bollyCoins"); $("#coins").html(coins);
+        }, 1500);
+    </script>
+</body>
+
+</html>
